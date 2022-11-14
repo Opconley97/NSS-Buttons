@@ -1,4 +1,4 @@
-export const serviceForm = () => {
+export const reservationForm = () => {
     let html = `
         <div class="field">
             <label class="label" for="parentName">Parent Name</label>
@@ -29,3 +29,27 @@ export const serviceForm = () => {
 
     return html
 }
+
+const mainContainer = document.querySelector("#container")
+
+mainContainer.addEventListener("click", clickEvent => {
+    if (clickEvent.target.id === "submitRequest") {
+        const userParentName = document.querySelector("input[name='parentName']").value
+        const userChildName = document.querySelector("input[name='childName']").value
+        const userChildAmount = document.querySelector("input[name='numOfChildren']").value
+        const userAddress = document.querySelector("input[name='address']").value
+        const userReservationDate = document.querySelector("input[name='reservationDate']").value
+        const userReservationLength = document.querySelector("input[name='reservationLength']").value
+    
+        const dataToSendToAPI = {
+            parentName: userParentName,
+            childName: userChildName,
+            childAmount: userChildAmount,
+            address: userAddress,
+            reservationDate: userReservationDate,
+            reservationLength: userReservationLength
+        }
+
+        sendReservation(dataToSendToAPI)
+    }
+})
