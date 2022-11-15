@@ -1,3 +1,5 @@
+import { sendReservation } from "./dataAccess.js"
+
 export const reservationForm = () => {
     let html = `
         <div class="field">

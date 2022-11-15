@@ -14,6 +14,10 @@ export const fetchReservations = () => {
     )
 }
 
+export const getReservations = () => {
+    return applicationState.reservations.map(reservation => ({...reservation}))
+}
+
 export const sendReservation = (userServiceReservation) => {
     const fetchOptions = {
         method: "POST",
@@ -28,4 +32,13 @@ export const sendReservation = (userServiceReservation) => {
     .then(() => {
         mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
     })
+}
+
+export const deleteReservation = (id) => {
+    return fetch(`${API}/reservations/${id}`, { method: "DELETE" })
+    .then(
+        () => {
+            mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
+        }
+    )
 }
