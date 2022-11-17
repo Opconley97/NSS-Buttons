@@ -14,8 +14,22 @@ export const fetchReservations = () => {
     )
 }
 
+export const fetchClowns = () => {
+    return fetch(`${API}/clowns`)
+    .then(response => response.json())
+    .then(
+        (data) => {
+            applicationState.clowns = data
+        }
+    )
+}
+
 export const getReservations = () => {
     return applicationState.reservations.map(reservation => ({...reservation}))
+}
+
+export const getClowns = () => {
+    return applicationState.clowns.map(clown => ({...clown}))
 }
 
 export const sendReservation = (userServiceReservation) => {
@@ -40,5 +54,30 @@ export const deleteReservation = (id) => {
         () => {
             mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
         }
+    )
+}
+
+export const saveCompletion = (completionObj) => {
+    const fetchOptions = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(completionObj)
+    }
+    return fetch(`${API}/completed`, fetchOptions)
+    .then(response => response.json())
+    .then(() => {
+        mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
+    })
+}
+
+export const fetchCompletions = () => {
+    return fetch(`${API}/completed`)
+    .then(response => response.json())
+    .then (
+        (data => (
+            applicationState.completed = data
+        ))
     )
 }
